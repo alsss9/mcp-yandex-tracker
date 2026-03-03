@@ -5,6 +5,7 @@ go 1.26.0
 require (
 	github.com/go-resty/resty/v2 v2.17.2
 	github.com/modelcontextprotocol/go-sdk v1.4.0
+	golang.org/x/crypto v0.48.0
 )
 
 require (
@@ -15,4 +16,5 @@ require (
 	golang.org/x/net v0.51.0 // indirect
 	golang.org/x/oauth2 v0.34.0 // indirect
 	golang.org/x/sys v0.41.0 // indirect
+	golang.org/x/text v0.34.0 // indirect
 )
