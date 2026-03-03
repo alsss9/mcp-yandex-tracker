@@ -3,40 +3,23 @@ package main
 import (
 	"context"
 	"log"
+	"os"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
+	"github.com/sunnyyssh/mcp-yandex-tracker/internal/mcpserver"
+	"github.com/sunnyyssh/mcp-yandex-tracker/internal/tracker"
 )
 
-type Input struct {
-	Name string `json:"name" jsonschema:"the name of the person to greet"`
-}
-
-type Output struct {
-	Greeting string `json:"greeting" jsonschema:"the greeting to tell to the user"`
-}
-
-func SayHi(ctx context.Context, req *mcp.CallToolRequest, input Input) (
-	*mcp.CallToolResult,
-	Output,
-	error,
-) {
-	return nil, Output{Greeting: "Hi " + input.Name}, nil
-}
-
 func main() {
-	server := mcp.NewServer(&mcp.Implementation{
-		Name:       "greeter",
-		Title:      "Greeter",
-		Version:    "v1.0.0",
-		WebsiteURL: "https://github.com/sunnyyssh/mcp-yandex-tracker",
-	}, nil)
+	trackerClient := tracker.New(tracker.Config{
+		Token:      os.Getenv("TRACKER_TOKEN"),
+		OrgID:      os.Getenv("TRACKER_ORG_ID"),
+		CloudOrgID: os.Getenv("TRACKER_CLOUD_ORG_ID"),
+	})
 
-	mcp.AddTool(server, &mcp.Tool{
-		Name:        "greet",
-		Description: "Say Hi",
-	}, SayHi)
+	mcpServer := mcpserver.NewServer(trackerClient)
 
-	if err := server.Run(context.Background(), &mcp.StdioTransport{}); err != nil {
+	if err := mcpServer.Run(context.Background(), &mcp.StdioTransport{}); err != nil {
 		log.Fatal(err)
 	}
 }
