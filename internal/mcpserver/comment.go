@@ -47,3 +47,45 @@ func (t *toolServer) AddComment(
 	}
 	return nil, AddCommentOutput{Comment: comment}, nil
 }
+
+type UpdateCommentInput struct {
+	Key       string `json:"key"        jsonschema:"Issue key, e.g. PROJ-123"`
+	CommentID string `json:"comment_id" jsonschema:"Comment ID"`
+	Text      string `json:"text"       jsonschema:"New comment text"`
+}
+
+type UpdateCommentOutput struct {
+	Comment *tracker.Comment `json:"comment"`
+}
+
+func (t *toolServer) UpdateComment(
+	ctx context.Context,
+	_ *mcp.CallToolRequest,
+	input UpdateCommentInput,
+) (*mcp.CallToolResult, UpdateCommentOutput, error) {
+	comment, err := t.Tracker.UpdateComment(ctx, input.Key, input.CommentID, input.Text)
+	if err != nil {
+		return nil, UpdateCommentOutput{}, err
+	}
+	return nil, UpdateCommentOutput{Comment: comment}, nil
+}
+
+type DeleteCommentInput struct {
+	Key       string `json:"key"        jsonschema:"Issue key, e.g. PROJ-123"`
+	CommentID string `json:"comment_id" jsonschema:"Comment ID"`
+}
+
+type DeleteCommentOutput struct {
+	OK bool `json:"ok"`
+}
+
+func (t *toolServer) DeleteComment(
+	ctx context.Context,
+	_ *mcp.CallToolRequest,
+	input DeleteCommentInput,
+) (*mcp.CallToolResult, DeleteCommentOutput, error) {
+	if err := t.Tracker.DeleteComment(ctx, input.Key, input.CommentID); err != nil {
+		return nil, DeleteCommentOutput{}, err
+	}
+	return nil, DeleteCommentOutput{OK: true}, nil
+}

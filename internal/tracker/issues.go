@@ -37,3 +37,20 @@ func (c *client) FindIssues(ctx context.Context, opts FindIssuesOptions) ([]*Iss
 	}
 	return result, nil
 }
+
+func (c *client) GetIssueTransitions(ctx context.Context, key string) ([]*Transition, error) {
+	var result []*Transition
+	if err := c.do(ctx, http.MethodGet, fmt.Sprintf("%s/issues/%s/transitions", baseURL, key), nil, &result); err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
+func (c *client) ExecuteTransition(ctx context.Context, key, transitionID string, opts ExecuteTransitionOptions) (*Issue, error) {
+	var result Issue
+	url := fmt.Sprintf("%s/issues/%s/transitions/%s/_execute", baseURL, key, transitionID)
+	if err := c.do(ctx, http.MethodPost, url, opts, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

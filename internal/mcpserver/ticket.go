@@ -58,13 +58,14 @@ func (t *toolServer) GetIssue(
 }
 
 type CreateIssueInput struct {
-	Summary     string `json:"summary"               jsonschema:"Issue title"`
-	Queue       string `json:"queue"                 jsonschema:"Queue key, e.g. PROJ"`
-	Description string `json:"description,omitempty" jsonschema:"Issue description"`
-	Type        string `json:"type,omitempty"        jsonschema:"Issue type key"`
-	Priority    string `json:"priority,omitempty"    jsonschema:"Priority key"`
-	Assignee    string `json:"assignee,omitempty"    jsonschema:"Assignee login"`
-	Parent      string `json:"parent,omitempty"      jsonschema:"Parent issue key"`
+	Summary     string   `json:"summary"               jsonschema:"Issue title"`
+	Queue       string   `json:"queue"                 jsonschema:"Queue key, e.g. PROJ"`
+	Description string   `json:"description,omitempty" jsonschema:"Issue description"`
+	Type        string   `json:"type,omitempty"        jsonschema:"Issue type key"`
+	Priority    string   `json:"priority,omitempty"    jsonschema:"Priority key"`
+	Assignee    string   `json:"assignee,omitempty"    jsonschema:"Assignee login"`
+	Parent      string   `json:"parent,omitempty"      jsonschema:"Parent issue key"`
+	Sprint      []string `json:"sprint,omitempty"      jsonschema:"Sprint IDs to assign the issue to"`
 }
 
 type CreateIssueOutput struct {
@@ -84,6 +85,7 @@ func (t *toolServer) CreateIssue(
 		Priority:    input.Priority,
 		Assignee:    input.Assignee,
 		Parent:      input.Parent,
+		Sprint:      input.Sprint,
 	})
 	if err != nil {
 		return nil, CreateIssueOutput{}, err
@@ -92,11 +94,12 @@ func (t *toolServer) CreateIssue(
 }
 
 type UpdateIssueInput struct {
-	Key         string `json:"key"                   jsonschema:"Issue key, e.g. PROJ-123"`
-	Summary     string `json:"summary,omitempty"     jsonschema:"New issue title"`
-	Description string `json:"description,omitempty" jsonschema:"New issue description"`
-	Priority    string `json:"priority,omitempty"    jsonschema:"New priority key"`
-	Assignee    string `json:"assignee,omitempty"    jsonschema:"New assignee login"`
+	Key         string    `json:"key"                   jsonschema:"Issue key, e.g. PROJ-123"`
+	Summary     string    `json:"summary,omitempty"     jsonschema:"New issue title"`
+	Description string    `json:"description,omitempty" jsonschema:"New issue description"`
+	Priority    string    `json:"priority,omitempty"    jsonschema:"New priority key"`
+	Assignee    string    `json:"assignee,omitempty"    jsonschema:"New assignee login"`
+	Sprint      *[]string `json:"sprint,omitempty"      jsonschema:"Sprint IDs to assign the issue to"`
 }
 
 type UpdateIssueOutput struct {
@@ -113,6 +116,7 @@ func (t *toolServer) UpdateIssue(
 		Description: input.Description,
 		Priority:    input.Priority,
 		Assignee:    input.Assignee,
+		Sprint:      input.Sprint,
 	})
 	if err != nil {
 		return nil, UpdateIssueOutput{}, err

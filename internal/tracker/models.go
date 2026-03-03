@@ -55,23 +55,25 @@ type Issue struct {
 	Sprint               []BasicRef `json:"sprint"`
 }
 
-// CreateIssueOptions is the request body for creating an issue.
+// CreateIssueOptions is the request body for POST /issues/.
 type CreateIssueOptions struct {
-	Summary     string `json:"summary"`
-	Queue       string `json:"queue"`
-	Description string `json:"description,omitempty"`
-	Type        string `json:"type,omitempty"`
-	Priority    string `json:"priority,omitempty"`
-	Assignee    string `json:"assignee,omitempty"`
-	Parent      string `json:"parent,omitempty"`
+	Summary     string   `json:"summary"`
+	Queue       string   `json:"queue"`
+	Description string   `json:"description,omitempty"`
+	Type        string   `json:"type,omitempty"`
+	Priority    string   `json:"priority,omitempty"`
+	Assignee    string   `json:"assignee,omitempty"`
+	Parent      string   `json:"parent,omitempty"`
+	Sprint      []string `json:"sprint,omitempty"`
 }
 
-// UpdateIssueOptions is the request body for patching an issue.
+// UpdateIssueOptions is the request body for PATCH /issues/{key}.
 type UpdateIssueOptions struct {
-	Summary     string `json:"summary,omitempty"`
-	Description string `json:"description,omitempty"`
-	Priority    string `json:"priority,omitempty"`
-	Assignee    string `json:"assignee,omitempty"`
+	Summary     string    `json:"summary,omitempty"`
+	Description string    `json:"description,omitempty"`
+	Priority    string    `json:"priority,omitempty"`
+	Assignee    string    `json:"assignee,omitempty"`
+	Sprint      *[]string `json:"sprint,omitempty"`
 }
 
 // FindIssuesOptions is the request body for POST /issues/_search.
@@ -80,6 +82,22 @@ type FindIssuesOptions struct {
 	Keys   []string       `json:"keys,omitempty"`
 	Filter map[string]any `json:"filter,omitempty"`
 	Query  string         `json:"query,omitempty"`
+}
+
+// Transition is an available workflow transition for an issue.
+type Transition struct {
+	Self    string    `json:"self"`
+	ID      string    `json:"id"`
+	Display string    `json:"display"`
+	To      *BasicRef `json:"to"`
+}
+
+// ExecuteTransitionOptions is the optional body for POST /issues/{key}/transitions/{id}/_execute.
+type ExecuteTransitionOptions struct {
+	// Comment to add when executing the transition.
+	Comment string `json:"comment,omitempty"`
+	// Resolution to set (key or id), used when closing an issue.
+	Resolution string `json:"resolution,omitempty"`
 }
 
 // Comment is an issue comment object.
@@ -91,4 +109,45 @@ type Comment struct {
 	UpdatedAt string    `json:"updatedAt"`
 	CreatedBy *BasicRef `json:"createdBy"`
 	UpdatedBy *BasicRef `json:"updatedBy"`
+}
+
+// Link represents a relation between two issues.
+type Link struct {
+	Self          string    `json:"self"`
+	ID            string    `json:"id"`
+	Type          *LinkType `json:"type"`
+	Direction     string    `json:"direction"`
+	Object        *BasicRef `json:"object"`
+	CreatedBy     *BasicRef `json:"createdBy"`
+	UpdatedBy     *BasicRef `json:"updatedBy"`
+	CreatedAt     string    `json:"createdAt"`
+	UpdatedAt     string    `json:"updatedAt"`
+}
+
+// LinkType describes the relationship type between issues.
+type LinkType struct {
+	Self      string `json:"self"`
+	ID        string `json:"id"`
+	Inward    string `json:"inward"`
+	Outward   string `json:"outward"`
+}
+
+// CreateLinkOptions is the request body for POST /issues/{key}/links.
+type CreateLinkOptions struct {
+	// Relationship type key, e.g. "relates", "depends", "blocks", "duplicates", "epic", "subtask".
+	Relationship string `json:"relationship"`
+	// Key of the issue to link to.
+	Issue string `json:"issue"`
+}
+
+// Queue is a Yandex Tracker queue.
+type Queue struct {
+	Self        string    `json:"self"`
+	ID          int       `json:"id"`
+	Key         string    `json:"key"`
+	Version     int       `json:"version"`
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+	Lead        *BasicRef `json:"lead"`
+	Assignee    *BasicRef `json:"assignee"`
 }

@@ -27,13 +27,34 @@ type Config struct {
 
 // Client is the interface for interacting with the Yandex Tracker API.
 type Client interface {
+	// Issues
 	GetIssue(ctx context.Context, key string) (*Issue, error)
 	CreateIssue(ctx context.Context, opts CreateIssueOptions) (*Issue, error)
 	UpdateIssue(ctx context.Context, key string, opts UpdateIssueOptions) (*Issue, error)
 	FindIssues(ctx context.Context, opts FindIssuesOptions) ([]*Issue, error)
+
+	// Transitions
+	GetIssueTransitions(ctx context.Context, key string) ([]*Transition, error)
+	ExecuteTransition(ctx context.Context, key, transitionID string, opts ExecuteTransitionOptions) (*Issue, error)
+
+	// Comments
 	GetIssueComments(ctx context.Context, key string) ([]*Comment, error)
 	AddComment(ctx context.Context, key, text string) (*Comment, error)
+	UpdateComment(ctx context.Context, key, commentID, text string) (*Comment, error)
+	DeleteComment(ctx context.Context, key, commentID string) error
+
+	// Links
+	GetIssueLinks(ctx context.Context, key string) ([]*Link, error)
+	CreateIssueLink(ctx context.Context, key string, opts CreateLinkOptions) (*Link, error)
+	DeleteIssueLink(ctx context.Context, key, linkID string) error
+
+	// Queues
+	GetQueues(ctx context.Context) ([]*Queue, error)
+	GetQueue(ctx context.Context, queueID string) (*Queue, error)
+
+	// Users
 	GetCurrentUser(ctx context.Context) (*User, error)
+	GetUser(ctx context.Context, uid string) (*User, error)
 }
 
 type client struct {

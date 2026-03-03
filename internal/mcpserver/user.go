@@ -24,3 +24,23 @@ func (t *toolServer) GetCurrentUser(
 	}
 	return nil, GetCurrentUserOutput{User: user}, nil
 }
+
+type GetUserInput struct {
+	UID string `json:"uid" jsonschema:"User UID or login"`
+}
+
+type GetUserOutput struct {
+	User *tracker.User `json:"user"`
+}
+
+func (t *toolServer) GetUser(
+	ctx context.Context,
+	_ *mcp.CallToolRequest,
+	input GetUserInput,
+) (*mcp.CallToolResult, GetUserOutput, error) {
+	user, err := t.Tracker.GetUser(ctx, input.UID)
+	if err != nil {
+		return nil, GetUserOutput{}, err
+	}
+	return nil, GetUserOutput{User: user}, nil
+}
